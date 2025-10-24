@@ -38,10 +38,16 @@ android {
     }
     buildFeatures {
         compose = true
+        // Habilitar View Binding puede ser útil para interactuar con XML
+        viewBinding = true
     }
 }
 
 dependencies {
+    // Dependencia de Material 2 para Vistas XML
+    implementation("com.google.android.material:material:1.11.0")
+
+    // Dependencias existentes de Compose y Material 3
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
