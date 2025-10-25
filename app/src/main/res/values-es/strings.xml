@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Vinilos</string>
-    <string name="birth_date_label">Birth date</string>
+    <string name="birth_date_label">Nacimiento</string>
 </resources>
