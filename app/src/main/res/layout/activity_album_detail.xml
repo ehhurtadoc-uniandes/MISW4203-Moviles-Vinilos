@@ -36,7 +36,6 @@
                 android:layout_height="0dp"
                 android:background="#E0E0E0"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,116 +43,147 @@
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
-                android:id="@+id/album_title_text"
+                android:id="@+id/album_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Poeta del pueblo"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                android:textColor="@android:color/black"
+                android:textAppearance="?attr/textAppearanceHeadline6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_cover_image" />
+                app:layout_constraintTop_toBottomOf="@id/album_cover_image"
+                tools:text="Album Title" />
 
-            <TextView
-                android:id="@+id/album_artist_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Rubén Blades Bellido de Luna"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_title_text" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
+            <HorizontalScrollView
+                android:id="@+id/performers_scroll"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_artist_text">
+                app:layout_constraintTop_toBottomOf="@id/album_title">
 
-                <com.google.android.material.chip.Chip
+                <LinearLayout
+                    android:id="@+id/performers_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Salsa" />
-
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Elektra" />
-
-            </com.google.android.material.chip.ChipGroup>
+                    android:orientation="horizontal">
+                    <!-- Performers will be added here dynamically -->
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/album_description_text"
+                android:id="@+id/album_genre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:text="Poeta del pueblo es uno de los álbumes más emblemáticos de Rubén Blades. Con letras cargadas de contenido social y ritmos de salsa, este álbum marcó un hito en la música latina."
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintEnd_toStartOf="@+id/record_label_separator"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chip_group" />
+                app:layout_constraintTop_toBottomOf="@id/performers_scroll"
+                tools:text="Genre" />
 
             <TextView
-                android:id="@+id/release_date_text"
+                android:id="@+id/record_label_separator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" • "
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintBottom_toBottomOf="@+id/album_genre"
+                app:layout_constraintEnd_toStartOf="@+id/record_label"
+                app:layout_constraintStart_toEndOf="@+id/album_genre"
+                app:layout_constraintTop_toTopOf="@+id/album_genre" />
+
+            <TextView
+                android:id="@+id/record_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="?attr/textAppearanceBody1"
+                app:layout_constraintBottom_toBottomOf="@+id/album_genre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/record_label_separator"
+                app:layout_constraintTop_toTopOf="@+id/album_genre"
+                tools:text="Record Label" />
+
+            <TextView
+                android:id="@+id/album_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="Fecha de lanzamiento: 31 de julio de 1984"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                android:textStyle="bold"
+                android:textAppearance="?attr/textAppearanceBody2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_description_text" />
+                app:layout_constraintTop_toBottomOf="@id/album_genre"
+                tools:text="Album description" />
 
             <TextView
-                android:id="@+id/tracks_header_text"
+                android:id="@+id/release_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/album_description"
+                tools:text="Fecha de lanzamiento: 1 de enero de 2023" />
+
+            <TextView
+                android:id="@+id/tracks_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
                 android:text="Pistas"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/release_date_text" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/associate_track_button"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="Asociar Pista"
-                app:icon="@drawable/ic_baseline_add_24"
-                app:layout_constraintBottom_toBottomOf="@id/tracks_header_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tracks_header_text" />
+                app:layout_constraintTop_toBottomOf="@id/release_date" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tracks_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tracks_header_text"
-                tools:itemCount="5"
-                tools:listitem="@layout/track_item" />
+                app:layout_constraintTop_toBottomOf="@id/tracks_title"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_track" />
+
+            <TextView
+                android:id="@+id/performers_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:text="Intérpretes"
+                android:textAppearance="?attr/textAppearanceSubtitle1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tracks_recycler_view" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/performers_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/performers_title"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_performer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
