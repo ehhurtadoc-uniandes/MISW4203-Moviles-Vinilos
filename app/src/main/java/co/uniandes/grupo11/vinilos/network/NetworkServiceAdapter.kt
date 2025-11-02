@@ -7,12 +7,13 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
+import co.uniandes.grupo11.vinilos.BuildConfig
 import co.uniandes.grupo11.vinilos.models.Album
 import org.json.JSONArray
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
-        const val BASE_URL = "http://10.0.2.2:3000"
+        val BASE_URL = BuildConfig.BASE_URL
         private var instance: NetworkServiceAdapter? = null
         fun getInstance(context: Context) =
             instance ?: synchronized(this) {
