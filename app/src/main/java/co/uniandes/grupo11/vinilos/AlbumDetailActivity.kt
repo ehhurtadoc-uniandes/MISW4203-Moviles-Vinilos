@@ -37,6 +37,7 @@ class AlbumDetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: AlbumDetailViewModel
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_album_detail)
@@ -74,9 +75,7 @@ class AlbumDetailActivity : AppCompatActivity() {
 
         val albumId = intent.getIntExtra("albumId", -1)
         if (albumId != -1) {
-            // Pedir ViewModel que cargue los detalles del álbum
             viewModel.loadAlbum(albumId)
-            // Observar cambios del álbum
             viewModel.album.observe(this) { album ->
                 album?.let {
                     runOnUiThread {
@@ -119,7 +118,6 @@ class AlbumDetailActivity : AppCompatActivity() {
                 }
             }
 
-            // Observar errores
             viewModel.error.observe(this) { errMsg ->
                 errMsg?.let { msg ->
                     runOnUiThread {

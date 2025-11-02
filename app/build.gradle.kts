@@ -21,12 +21,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3000\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://vynils.khronomarket.com\"")
         }
     }
     compileOptions {
@@ -38,8 +42,8 @@ android {
     }
     buildFeatures {
         compose = true
-        // Habilitar View Binding puede ser útil para interactuar con XML
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -75,7 +79,11 @@ dependencies {
     // Glide dependency for image loading
     implementation("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
+    
     // Dependencia para ViewModel y LiveData (Jetpack Lifecycle)
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    
+    // SwipeRefreshLayout para pull-to-refresh
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 }

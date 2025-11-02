@@ -10,25 +10,35 @@ import co.uniandes.grupo11.vinilos.network.NetworkServiceAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AlbumDetailViewModel(application: Application) : AndroidViewModel(application) {
-    private val _album = MutableLiveData<Album?>()
-    val album: LiveData<Album?> = _album
+class AlbumsViewModel(application: Application) : AndroidViewModel(application) {
+    private val _albums = MutableLiveData<List<Album>>()
+    val albums: LiveData<List<Album>> = _albums
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
     private val networkService by lazy { NetworkServiceAdapter.getInstance(getApplication()) }
 
-    fun loadAlbum(albumId: Int) {
+    init {
+        loadAlbums()
+    }
+
+    fun loadAlbums() {
+        _isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.IO) {
-            networkService.getAlbum(albumId,
-                onComplete = { loadedAlbum ->
-                    _album.postValue(loadedAlbum)
+            networkService.getAlbums(
+                onComplete = { loadedAlbums ->
+                    _albums.postValue(loadedAlbums)
                     _error.postValue(null)
+                    _isLoading.postValue(false)
                 },
                 onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido")
-                    _album.postValue(null)
+                    _error.postValue(throwable.message ?: "Error desconocido al cargar álbumes")
+                    _albums.postValue(emptyList())
+                    _isLoading.postValue(false)
                 }
             )
         }
