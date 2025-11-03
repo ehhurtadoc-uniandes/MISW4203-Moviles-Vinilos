@@ -9,6 +9,8 @@
 | 3  | Sergio Fernando Barrera Molano        | 202517034 | sf.barreram1@uniandes.edu.co  |
 | 4  | Juan José Restrepo Bonilla            | 202516633 | jj.restrepob1@uniandes.edu.co |
 
+## Version actual: https://github.com/ehhurtadoc-uniandes/MISW4203-Moviles-Vinilos/blob/main/APKs%20Release/Vinilos_1.0.apk
+
 ---
 
 ## Acuerdos
