@@ -30,3 +30,10 @@
   - **Jueves a sábado**, para la **retroalimentación y unificación**.  
 - La coordinación de reuniones será por **WhatsApp**.  
 - En cada reunión se **revisarán las tareas realizadas**.
+
+---
+
+## Requerimientos
+
+- Android Studio
+- ADB (winget install --id=Google.PlatformTools  -e)
