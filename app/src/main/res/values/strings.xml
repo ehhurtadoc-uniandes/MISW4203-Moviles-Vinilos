@@ -7,7 +7,15 @@
     <string name="loading_albums">Cargando álbumes…</string>
     <string name="error_loading_albums">Error al cargar álbumes</string>
     
-    <!-- Bottom Navigation -->
+    <string name="collectors_title">Coleccionistas</string>
+    <string name="loading_collectors">Cargando coleccionistas…</string>
+    <string name="error_loading_collectors">Error al cargar coleccionistas</string>
+    <string name="no_collectors_available">No hay coleccionistas disponibles</string>
+    <string name="collector_name_label">Nombre</string>
+    <string name="collector_email_label">Correo electrónico</string>
+    <string name="collector_phone_label">Teléfono</string>
+    <string name="collector_image_description">Imagen del coleccionista</string>
+    
     <string name="nav_albums">Álbumes</string>
     <string name="nav_artists">Artistas</string>
     <string name="nav_collectors">Coleccionistas</string>

@@ -9,6 +9,7 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import co.uniandes.grupo11.vinilos.BuildConfig
 import co.uniandes.grupo11.vinilos.models.Album
+import co.uniandes.grupo11.vinilos.models.Collector
 import org.json.JSONArray
 
 class NetworkServiceAdapter constructor(context: Context) {
@@ -62,5 +63,27 @@ class NetworkServiceAdapter constructor(context: Context) {
             albums.add(gson.fromJson(albumJson.toString(), Album::class.java))
         }
         return albums
+    }
+
+    fun getCollectors(onComplete: (resp: List<Collector>) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonArrayRequest(Request.Method.GET, "$BASE_URL/collectors", null,
+                { response ->
+                    val collectors = parseCollectorArray(response)
+                    onComplete(collectors)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    private fun parseCollectorArray(jsonArray: JSONArray): List<Collector> {
+        val collectors = mutableListOf<Collector>()
+        for (i in 0 until jsonArray.length()) {
+            val collectorJson = jsonArray.getJSONObject(i)
+            collectors.add(gson.fromJson(collectorJson.toString(), Collector::class.java))
+        }
+        return collectors
     }
 }
