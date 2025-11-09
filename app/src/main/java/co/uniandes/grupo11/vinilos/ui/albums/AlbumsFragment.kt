@@ -9,11 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import co.uniandes.grupo11.vinilos.R
-import co.uniandes.grupo11.vinilos.adapters.AlbumsAdapter
+import co.uniandes.grupo11.vinilos.ui.adapters.AlbumsAdapter
 import co.uniandes.grupo11.vinilos.viewmodels.AlbumsViewModel
 
 class AlbumsFragment : Fragment() {

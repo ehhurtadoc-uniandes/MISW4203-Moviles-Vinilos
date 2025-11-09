@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import co.uniandes.grupo11.vinilos.R
-import co.uniandes.grupo11.vinilos.adapters.PerformersAdapter
-import co.uniandes.grupo11.vinilos.adapters.TracksAdapter
+import co.uniandes.grupo11.vinilos.ui.adapters.PerformersAdapter
+import co.uniandes.grupo11.vinilos.ui.adapters.TracksAdapter
 import co.uniandes.grupo11.vinilos.viewmodels.AlbumDetailViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale

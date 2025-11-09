@@ -1,4 +1,4 @@
-package co.uniandes.grupo11.vinilos.adapters
+package co.uniandes.grupo11.vinilos.ui.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -66,3 +66,5 @@ class PerformersAdapter(private val context: android.content.Context) : Recycler
         notifyDataSetChanged()
     }
 }
+
+
