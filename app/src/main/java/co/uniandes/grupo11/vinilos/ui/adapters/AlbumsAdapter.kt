@@ -1,4 +1,4 @@
-package co.uniandes.grupo11.vinilos.adapters
+package co.uniandes.grupo11.vinilos.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -64,4 +64,5 @@ class AlbumsAdapter(
         notifyDataSetChanged()
     }
 }
+
 
