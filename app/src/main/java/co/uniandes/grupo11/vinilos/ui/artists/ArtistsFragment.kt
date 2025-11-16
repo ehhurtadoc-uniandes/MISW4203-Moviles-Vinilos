@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import co.uniandes.grupo11.vinilos.R
 import co.uniandes.grupo11.vinilos.ui.adapters.ArtistsAdapter
+import co.uniandes.grupo11.vinilos.ui.artists.ArtistDetailFragment
 import co.uniandes.grupo11.vinilos.viewmodels.ArtistsViewModel
 
 class ArtistsFragment : Fragment() {
@@ -40,7 +41,13 @@ class ArtistsFragment : Fragment() {
         emptyStateText = view.findViewById(R.id.empty_state_text)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
 
-        artistsAdapter = ArtistsAdapter()
+        artistsAdapter = ArtistsAdapter { artist ->
+            val detailFragment = ArtistDetailFragment.newInstance(artist.id)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, detailFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         artistsRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
