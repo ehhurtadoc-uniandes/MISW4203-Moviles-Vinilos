@@ -16,6 +16,11 @@
     <string name="collector_phone_label">Teléfono</string>
     <string name="collector_image_description">Imagen del coleccionista</string>
     
+    <string name="artist_image_description">Imagen del artista</string>
+    <string name="loading_artists">Cargando artistas…</string>
+    <string name="error_loading_artists">Error al cargar artistas</string>
+    <string name="no_artists_available">No hay artistas disponibles</string>
+    
     <string name="nav_albums">Álbumes</string>
     <string name="nav_artists">Artistas</string>
     <string name="nav_collectors">Coleccionistas</string>

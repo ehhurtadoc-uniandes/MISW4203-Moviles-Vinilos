@@ -116,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment, clearBackStack: Boolean = true) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, fragment)
-            .commit()
+            .commitNow()
     }
 
     private fun clearBackStack() {
