@@ -13,7 +13,10 @@ import co.uniandes.grupo11.vinilos.models.Performer
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class PerformersAdapter(private val context: android.content.Context) : RecyclerView.Adapter<PerformersAdapter.PerformerViewHolder>() {
+class PerformersAdapter(
+    private val context: android.content.Context,
+    private val onPerformerClick: ((Performer) -> Unit)? = null
+) : RecyclerView.Adapter<PerformersAdapter.PerformerViewHolder>() {
     private var performers: List<Performer> = emptyList()
 
 
@@ -23,7 +26,7 @@ class PerformersAdapter(private val context: android.content.Context) : Recycler
         private val descriptionTextView: TextView = view.findViewById(R.id.performer_description)
         private val birthDateTextView: TextView = view.findViewById(R.id.performer_birth_date)
 
-        fun bind(performer: Performer) {
+        fun bind(performer: Performer, onPerformerClick: ((Performer) -> Unit)?) {
             nameTextView.text = performer.name
             descriptionTextView.text = performer.description
 
@@ -46,6 +49,13 @@ class PerformersAdapter(private val context: android.content.Context) : Recycler
                     birthDateTextView.text = itemView.context.getString(R.string.birth_date_label) + ": " + birthDateStr
                 }
             }
+
+            onPerformerClick?.let { clickListener ->
+                itemView.setOnClickListener {
+                    clickListener(performer)
+                }
+                itemView.isClickable = true
+            }
         }
     }
 
@@ -56,7 +66,7 @@ class PerformersAdapter(private val context: android.content.Context) : Recycler
     }
 
     override fun onBindViewHolder(holder: PerformerViewHolder, position: Int) {
-        holder.bind(performers[position])
+        holder.bind(performers[position], onPerformerClick)
     }
 
     override fun getItemCount() = performers.size

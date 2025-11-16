@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="20"
+    android:viewportHeight="20">
+    
+    <group>
+        <!-- Path de la parte superior (cinta) -->
+        <path
+            android:pathData="M12.8884,10.7341L14.15,17.8341C14.1642,17.9177 14.1524,18.0037 14.1164,18.0804C14.0804,18.1572 14.0218,18.2211 13.9485,18.2637C13.8751,18.3062 13.7905,18.3254 13.706,18.3186C13.6215,18.3117 13.5411,18.2793 13.4755,18.2255L10.4943,15.9879C10.3504,15.8804 10.1755,15.8223 9.99588,15.8223C9.81623,15.8223 9.6414,15.8804 9.49748,15.9879L6.51124,18.2247C6.44572,18.2784 6.3654,18.3108 6.28098,18.3176C6.19657,18.3244 6.11208,18.3053 6.03879,18.2629C5.9655,18.2205 5.9069,18.1567 5.87079,18.0801C5.83469,18.0035 5.8228,17.9177 5.83672,17.8341L7.0975,10.7341"
+            android:strokeColor="#E17100"
+            android:strokeWidth="1.6655"
+            android:fillColor="@android:color/transparent"/>
+        
+        <!-- Path del círculo (medalla) -->
+        <path
+            android:pathData="M9.99295,11.6585C12.7524,11.6585 14.9894,9.4215 14.9894,6.66202C14.9894,3.90253 12.7524,1.66553 9.99295,1.66553C7.23346,1.66553 4.99646,3.90253 4.99646,6.66202C4.99646,9.4215 7.23346,11.6585 9.99295,11.6585Z"
+            android:strokeColor="#E17100"
+            android:strokeWidth="1.6655"
+            android:fillColor="@android:color/transparent"/>
+    </group>
+</vector>
