@@ -15,7 +15,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class HU003ConsultarListadoColeccionistasTest {
+class HU005ConsultarListadoColeccionistasTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)

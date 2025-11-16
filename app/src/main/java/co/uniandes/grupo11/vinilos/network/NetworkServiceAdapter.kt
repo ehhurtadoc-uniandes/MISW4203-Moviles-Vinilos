@@ -10,6 +10,7 @@ import com.google.gson.Gson
 import co.uniandes.grupo11.vinilos.BuildConfig
 import co.uniandes.grupo11.vinilos.models.Album
 import co.uniandes.grupo11.vinilos.models.Collector
+import co.uniandes.grupo11.vinilos.models.Performer
 import org.json.JSONArray
 
 class NetworkServiceAdapter constructor(context: Context) {
@@ -85,5 +86,27 @@ class NetworkServiceAdapter constructor(context: Context) {
             collectors.add(gson.fromJson(collectorJson.toString(), Collector::class.java))
         }
         return collectors
+    }
+
+    fun getMusicians(onComplete: (resp: List<Performer>) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonArrayRequest(Request.Method.GET, "$BASE_URL/musicians", null,
+                { response ->
+                    val musicians = parseMusicianArray(response)
+                    onComplete(musicians)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    private fun parseMusicianArray(jsonArray: JSONArray): List<Performer> {
+        val musicians = mutableListOf<Performer>()
+        for (i in 0 until jsonArray.length()) {
+            val musicianJson = jsonArray.getJSONObject(i)
+            musicians.add(gson.fromJson(musicianJson.toString(), Performer::class.java))
+        }
+        return musicians
     }
 }
