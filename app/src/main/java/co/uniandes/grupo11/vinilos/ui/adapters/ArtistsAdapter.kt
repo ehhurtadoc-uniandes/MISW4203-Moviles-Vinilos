@@ -10,7 +10,9 @@ import com.bumptech.glide.Glide
 import co.uniandes.grupo11.vinilos.R
 import co.uniandes.grupo11.vinilos.models.Performer
 
-class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
+class ArtistsAdapter(
+    private val onArtistClick: (Performer) -> Unit
+) : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
     
     private var artists: List<Performer> = emptyList()
 
@@ -19,7 +21,7 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
         private val artistName: TextView = view.findViewById(R.id.artist_name)
         private val artistDescription: TextView = view.findViewById(R.id.artist_description)
 
-        fun bind(artist: Performer) {
+        fun bind(artist: Performer, onArtistClick: (Performer) -> Unit) {
             artistName.text = artist.name
             artistDescription.text = artist.description
 
@@ -29,6 +31,10 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
                 .error(R.drawable.ic_launcher_background)
                 .circleCrop()
                 .into(artistImage)
+
+            itemView.setOnClickListener {
+                onArtistClick(artist)
+            }
         }
     }
 
@@ -39,7 +45,7 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bind(artists[position])
+        holder.bind(artists[position], onArtistClick)
     }
 
     override fun getItemCount() = artists.size

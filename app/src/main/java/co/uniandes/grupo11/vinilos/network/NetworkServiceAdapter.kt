@@ -9,6 +9,8 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import co.uniandes.grupo11.vinilos.BuildConfig
 import co.uniandes.grupo11.vinilos.models.Album
+import co.uniandes.grupo11.vinilos.models.ArtistDetail
+import co.uniandes.grupo11.vinilos.models.BandDetail
 import co.uniandes.grupo11.vinilos.models.Collector
 import co.uniandes.grupo11.vinilos.models.Performer
 import org.json.JSONArray
@@ -108,5 +110,31 @@ class NetworkServiceAdapter constructor(context: Context) {
             musicians.add(gson.fromJson(musicianJson.toString(), Performer::class.java))
         }
         return musicians
+    }
+
+    fun getMusician(musicianId: Int, onComplete: (resp: ArtistDetail) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.GET, "$BASE_URL/musicians/$musicianId", null,
+                { response ->
+                    val artistDetail = gson.fromJson(response.toString(), ArtistDetail::class.java)
+                    onComplete(artistDetail)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    fun getBand(bandId: Int, onComplete: (resp: BandDetail) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.GET, "$BASE_URL/bands/$bandId", null,
+                { response ->
+                    val bandDetail = gson.fromJson(response.toString(), BandDetail::class.java)
+                    onComplete(bandDetail)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
     }
 }

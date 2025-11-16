@@ -24,4 +24,12 @@
     <string name="nav_albums">Álbumes</string>
     <string name="nav_artists">Artistas</string>
     <string name="nav_collectors">Coleccionistas</string>
+    
+    <string name="artist_detail_title">Detalle del Artista</string>
+    <string name="albums_section_title">Álbumes</string>
+    <string name="awards_section_title">Premios</string>
+    <string name="award_icon_description">Icono de premio</string>
+    <string name="award_default_name">Premio</string>
+    <string name="birth_date_prefix">Nacimiento:</string>
+    <string name="creation_date_prefix">Creación:</string>
 </resources>

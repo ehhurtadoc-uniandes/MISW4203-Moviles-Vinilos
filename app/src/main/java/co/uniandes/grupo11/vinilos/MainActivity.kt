@@ -9,6 +9,8 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import co.uniandes.grupo11.vinilos.ui.albums.AlbumsFragment
 import co.uniandes.grupo11.vinilos.ui.albums.AlbumDetailFragment
+import co.uniandes.grupo11.vinilos.ui.artists.ArtistDetailFragment
+import co.uniandes.grupo11.vinilos.ui.artists.BandDetailFragment
 import co.uniandes.grupo11.vinilos.ui.artists.ArtistsFragment
 import co.uniandes.grupo11.vinilos.ui.collectors.CollectorsFragment
 
@@ -68,6 +70,18 @@ class MainActivity : AppCompatActivity() {
                     
                     val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
                     when (currentFragment) {
+                        is AlbumDetailFragment -> {
+                            toolbarTitle.text = "Detalle del Álbum"
+                            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        }
+                        is ArtistDetailFragment -> {
+                            toolbarTitle.text = getString(R.string.artist_detail_title)
+                            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        }
+                        is BandDetailFragment -> {
+                            toolbarTitle.text = getString(R.string.artist_detail_title)
+                            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        }
                         is AlbumsFragment -> {
                             toolbarTitle.text = getString(R.string.app_name)
                             supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -95,6 +109,14 @@ class MainActivity : AppCompatActivity() {
             when (currentFragment) {
                 is AlbumDetailFragment -> {
                     toolbarTitle.text = "Detalle del Álbum"
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
+                is ArtistDetailFragment -> {
+                    toolbarTitle.text = getString(R.string.artist_detail_title)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
+                is BandDetailFragment -> {
+                    toolbarTitle.text = getString(R.string.artist_detail_title)
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is AlbumsFragment -> {
