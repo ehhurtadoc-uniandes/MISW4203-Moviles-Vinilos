@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import co.uniandes.grupo11.vinilos.models.Album
-import co.uniandes.grupo11.vinilos.network.NetworkServiceAdapter
+import co.uniandes.grupo11.vinilos.repositories.AlbumRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,12 +17,13 @@ class AlbumDetailViewModel(application: Application) : AndroidViewModel(applicat
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    private val networkService by lazy { NetworkServiceAdapter.getInstance(getApplication()) }
+    private val albumRepository = AlbumRepository(application)
 
     fun loadAlbum(albumId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            networkService.getAlbum(albumId,
-                onComplete = { loadedAlbum ->
+            albumRepository.getAlbumById(
+                albumId = albumId,
+                callback = { loadedAlbum ->
                     _album.postValue(loadedAlbum)
                     _error.postValue(null)
                 },

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
-    android:layout_marginVertical="4dp"
+    android:layout_marginVertical="8dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+    app:cardBackgroundColor="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,32 +17,36 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/performer_image"
+            android:id="@+id/artist_image"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
-            android:contentDescription="Foto del intérprete"
-            tools:src="@tools:sample/avatars"/>
+            android:contentDescription="@string/artist_image_description"
+            android:background="@drawable/artist_image_background"
+            tools:src="@tools/sample/avatars" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/performer_name"
+                android:id="@+id/artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="16sp"
                 android:textColor="?android:attr/textColorPrimary"
-                tools:text="Nombre del Artista"/>
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="Rubén Blades Bellido de Luna" />
 
             <TextView
-                android:id="@+id/performer_description"
+                android:id="@+id/artist_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -52,17 +54,9 @@
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:textColor="?android:attr/textColorSecondary"
-                tools:text="Descripción del artista que puede ser muy larga y necesitar más de una línea"/>
-
-            <TextView
-                android:id="@+id/performer_birth_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="14sp"
-                android:textColor="?android:attr/textColorSecondary"
-                tools:text="Nacimiento: 1 de enero de 1970"/>
+                tools:text="Rubén Blades es un cantautor, músico, actor, abogado, político y activista panameño." />
 
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
+
