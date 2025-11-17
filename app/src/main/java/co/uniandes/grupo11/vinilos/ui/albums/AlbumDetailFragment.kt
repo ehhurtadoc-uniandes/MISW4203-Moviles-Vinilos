@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import co.uniandes.grupo11.vinilos.R
-import co.uniandes.grupo11.vinilos.adapters.PerformersAdapter
-import co.uniandes.grupo11.vinilos.adapters.TracksAdapter
+import co.uniandes.grupo11.vinilos.ui.adapters.PerformersAdapter
+import co.uniandes.grupo11.vinilos.ui.adapters.TracksAdapter
+import co.uniandes.grupo11.vinilos.ui.artists.ArtistDetailFragment
+import co.uniandes.grupo11.vinilos.ui.artists.BandDetailFragment
 import co.uniandes.grupo11.vinilos.viewmodels.AlbumDetailViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -78,7 +80,23 @@ class AlbumDetailFragment : Fragment() {
         performersRecyclerView = view.findViewById(R.id.performers_recycler_view)
 
         tracksAdapter = TracksAdapter()
-        performersAdapter = PerformersAdapter(requireContext())
+        performersAdapter = PerformersAdapter(requireContext()) { performer ->
+            if (performer.birthDate != null) {
+                val detailFragment = ArtistDetailFragment.newInstance(performer.id)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, detailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            } else if (performer.creationDate != null) {
+                val detailFragment = BandDetailFragment.newInstance(performer.id)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, detailFragment)
+                    .addToBackStack(null)
+                    .commit()
+            } else {
+                Toast.makeText(requireContext(), "No se puede determinar el tipo de performer", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         tracksRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

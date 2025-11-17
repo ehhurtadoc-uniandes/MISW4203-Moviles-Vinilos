@@ -9,6 +9,10 @@ import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import co.uniandes.grupo11.vinilos.BuildConfig
 import co.uniandes.grupo11.vinilos.models.Album
+import co.uniandes.grupo11.vinilos.models.ArtistDetail
+import co.uniandes.grupo11.vinilos.models.BandDetail
+import co.uniandes.grupo11.vinilos.models.Collector
+import co.uniandes.grupo11.vinilos.models.Performer
 import org.json.JSONArray
 
 class NetworkServiceAdapter constructor(context: Context) {
@@ -62,5 +66,75 @@ class NetworkServiceAdapter constructor(context: Context) {
             albums.add(gson.fromJson(albumJson.toString(), Album::class.java))
         }
         return albums
+    }
+
+    fun getCollectors(onComplete: (resp: List<Collector>) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonArrayRequest(Request.Method.GET, "$BASE_URL/collectors", null,
+                { response ->
+                    val collectors = parseCollectorArray(response)
+                    onComplete(collectors)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    private fun parseCollectorArray(jsonArray: JSONArray): List<Collector> {
+        val collectors = mutableListOf<Collector>()
+        for (i in 0 until jsonArray.length()) {
+            val collectorJson = jsonArray.getJSONObject(i)
+            collectors.add(gson.fromJson(collectorJson.toString(), Collector::class.java))
+        }
+        return collectors
+    }
+
+    fun getMusicians(onComplete: (resp: List<Performer>) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonArrayRequest(Request.Method.GET, "$BASE_URL/musicians", null,
+                { response ->
+                    val musicians = parseMusicianArray(response)
+                    onComplete(musicians)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    private fun parseMusicianArray(jsonArray: JSONArray): List<Performer> {
+        val musicians = mutableListOf<Performer>()
+        for (i in 0 until jsonArray.length()) {
+            val musicianJson = jsonArray.getJSONObject(i)
+            musicians.add(gson.fromJson(musicianJson.toString(), Performer::class.java))
+        }
+        return musicians
+    }
+
+    fun getMusician(musicianId: Int, onComplete: (resp: ArtistDetail) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.GET, "$BASE_URL/musicians/$musicianId", null,
+                { response ->
+                    val artistDetail = gson.fromJson(response.toString(), ArtistDetail::class.java)
+                    onComplete(artistDetail)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    fun getBand(bandId: Int, onComplete: (resp: BandDetail) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.GET, "$BASE_URL/bands/$bandId", null,
+                { response ->
+                    val bandDetail = gson.fromJson(response.toString(), BandDetail::class.java)
+                    onComplete(bandDetail)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
     }
 }
