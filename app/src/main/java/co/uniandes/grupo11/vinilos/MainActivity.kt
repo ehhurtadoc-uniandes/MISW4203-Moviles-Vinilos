@@ -12,6 +12,7 @@ import co.uniandes.grupo11.vinilos.ui.albums.AlbumDetailFragment
 import co.uniandes.grupo11.vinilos.ui.artists.ArtistDetailFragment
 import co.uniandes.grupo11.vinilos.ui.artists.BandDetailFragment
 import co.uniandes.grupo11.vinilos.ui.artists.ArtistsFragment
+import co.uniandes.grupo11.vinilos.ui.collectors.CollectorDetailFragment
 import co.uniandes.grupo11.vinilos.ui.collectors.CollectorsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -82,6 +83,10 @@ class MainActivity : AppCompatActivity() {
                             toolbarTitle.text = getString(R.string.artist_detail_title)
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
+                        is CollectorDetailFragment -> {
+                            toolbarTitle.text = "Detalle del Coleccionista"
+                            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        }
                         is AlbumsFragment -> {
                             toolbarTitle.text = getString(R.string.app_name)
                             supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -117,6 +122,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 is BandDetailFragment -> {
                     toolbarTitle.text = getString(R.string.artist_detail_title)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
+                is CollectorDetailFragment -> {
+                    toolbarTitle.text = "Detalle del Coleccionista"
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is AlbumsFragment -> {
