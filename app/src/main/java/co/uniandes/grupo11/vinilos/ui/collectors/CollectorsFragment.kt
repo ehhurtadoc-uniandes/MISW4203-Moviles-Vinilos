@@ -40,7 +40,13 @@ class CollectorsFragment : Fragment() {
         emptyStateText = view.findViewById(R.id.empty_state_text)
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
 
-        collectorsAdapter = CollectorsAdapter()
+        collectorsAdapter = CollectorsAdapter { collector ->
+            val detailFragment = CollectorDetailFragment.newInstance(collector.id)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, detailFragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
         collectorsRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

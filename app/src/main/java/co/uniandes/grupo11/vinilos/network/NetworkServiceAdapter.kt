@@ -12,6 +12,7 @@ import co.uniandes.grupo11.vinilos.models.Album
 import co.uniandes.grupo11.vinilos.models.ArtistDetail
 import co.uniandes.grupo11.vinilos.models.BandDetail
 import co.uniandes.grupo11.vinilos.models.Collector
+import co.uniandes.grupo11.vinilos.models.CollectorDetail
 import co.uniandes.grupo11.vinilos.models.Performer
 import org.json.JSONArray
 
@@ -88,6 +89,19 @@ class NetworkServiceAdapter constructor(context: Context) {
             collectors.add(gson.fromJson(collectorJson.toString(), Collector::class.java))
         }
         return collectors
+    }
+
+    fun getCollector(collectorId: Int, onComplete: (resp: CollectorDetail) -> Unit, onError: (error: Exception) -> Unit) {
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.GET, "$BASE_URL/collectors/$collectorId", null,
+                { response ->
+                    val collectorDetail = gson.fromJson(response.toString(), CollectorDetail::class.java)
+                    onComplete(collectorDetail)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
     }
 
     fun getMusicians(onComplete: (resp: List<Performer>) -> Unit, onError: (error: Exception) -> Unit) {
