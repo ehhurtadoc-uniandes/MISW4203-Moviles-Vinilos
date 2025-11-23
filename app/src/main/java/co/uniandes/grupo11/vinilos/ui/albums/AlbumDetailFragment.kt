@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import co.uniandes.grupo11.vinilos.R
+import co.uniandes.grupo11.vinilos.ui.adapters.AlbumCommentsAdapter
 import co.uniandes.grupo11.vinilos.ui.adapters.PerformersAdapter
 import co.uniandes.grupo11.vinilos.ui.adapters.TracksAdapter
 import co.uniandes.grupo11.vinilos.ui.artists.ArtistDetailFragment
@@ -33,11 +35,17 @@ class AlbumDetailFragment : Fragment() {
     private lateinit var performersContainer: LinearLayout
     private lateinit var tracksRecyclerView: RecyclerView
     private lateinit var performersRecyclerView: RecyclerView
+    private lateinit var commentsRecyclerView: RecyclerView
     private lateinit var tracksAdapter: TracksAdapter
     private lateinit var performersAdapter: PerformersAdapter
+    private lateinit var commentsAdapter: AlbumCommentsAdapter
+    private lateinit var btnAddTrack: Button
+    private lateinit var btnAddComment: Button
 
     private lateinit var viewModel: AlbumDetailViewModel
     private var albumId: Int = -1
+    private var albumName: String = ""
+    private var albumArtist: String = ""
 
     companion object {
         private const val ARG_ALBUM_ID = "albumId"
@@ -78,8 +86,12 @@ class AlbumDetailFragment : Fragment() {
         performersContainer = view.findViewById(R.id.performers_container)
         tracksRecyclerView = view.findViewById(R.id.tracks_recycler_view)
         performersRecyclerView = view.findViewById(R.id.performers_recycler_view)
+        commentsRecyclerView = view.findViewById(R.id.comments_recycler_view)
+        btnAddTrack = view.findViewById(R.id.btn_add_track)
+        btnAddComment = view.findViewById(R.id.btn_add_comment)
 
         tracksAdapter = TracksAdapter()
+        commentsAdapter = AlbumCommentsAdapter()
         performersAdapter = PerformersAdapter(requireContext()) { performer ->
             if (performer.birthDate != null) {
                 val detailFragment = ArtistDetailFragment.newInstance(performer.id)
@@ -108,6 +120,11 @@ class AlbumDetailFragment : Fragment() {
             adapter = performersAdapter
         }
 
+        commentsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = commentsAdapter
+        }
+
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
@@ -116,12 +133,24 @@ class AlbumDetailFragment : Fragment() {
         if (albumId != -1) {
             viewModel.loadAlbum(albumId)
 
+            btnAddTrack.setOnClickListener {
+                val addTrackFragment = AddTrackFragment.newInstance(albumId, albumName, albumArtist)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, addTrackFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
             viewModel.album.observe(viewLifecycleOwner) { album ->
                 album?.let {
+                    albumName = it.name
                     albumTitleText.text = it.name
                     albumGenreText.text = it.genre
                     albumDescriptionText.text = it.description
                     recordLabelText.text = it.recordLabel
+                    
+                    // Guardar artistas para usar en AddTrackFragment
+                    albumArtist = it.performers.joinToString(", ") { performer -> performer.name }
 
                     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
                     val outputFormat = SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es", "ES"))
@@ -142,6 +171,7 @@ class AlbumDetailFragment : Fragment() {
 
                     tracksAdapter.updateTracks(it.tracks)
                     performersAdapter.updatePerformers(it.performers)
+                    commentsAdapter.updateComments(it.comments)
 
                     performersContainer.removeAllViews()
                     it.performers.forEach { performer ->

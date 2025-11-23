@@ -14,7 +14,9 @@ import co.uniandes.grupo11.vinilos.models.BandDetail
 import co.uniandes.grupo11.vinilos.models.Collector
 import co.uniandes.grupo11.vinilos.models.CollectorDetail
 import co.uniandes.grupo11.vinilos.models.Performer
+import co.uniandes.grupo11.vinilos.models.Track
 import org.json.JSONArray
+import org.json.JSONObject
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -145,6 +147,23 @@ class NetworkServiceAdapter constructor(context: Context) {
                 { response ->
                     val bandDetail = gson.fromJson(response.toString(), BandDetail::class.java)
                     onComplete(bandDetail)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
+
+    fun addTrackToAlbum(albumId: Int, trackName: String, trackDuration: String, onComplete: (resp: Track) -> Unit, onError: (error: Exception) -> Unit) {
+        val requestBody = JSONObject()
+        requestBody.put("name", trackName)
+        requestBody.put("duration", trackDuration)
+
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.POST, "$BASE_URL/albums/$albumId/tracks", requestBody,
+                { response ->
+                    val track = gson.fromJson(response.toString(), Track::class.java)
+                    onComplete(track)
                 },
                 {
                     onError(Exception(it.message))
