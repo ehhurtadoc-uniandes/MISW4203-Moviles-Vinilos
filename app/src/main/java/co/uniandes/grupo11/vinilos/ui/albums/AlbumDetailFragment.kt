@@ -141,6 +141,14 @@ class AlbumDetailFragment : Fragment() {
                     .commit()
             }
 
+            btnAddComment.setOnClickListener {
+                val addCommentFragment = AddCommentFragment.newInstance(albumId, albumName, albumArtist)
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, addCommentFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+
             viewModel.album.observe(viewLifecycleOwner) { album ->
                 album?.let {
                     albumName = it.name
