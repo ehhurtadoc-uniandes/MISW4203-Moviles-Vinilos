@@ -24,20 +24,19 @@ class ArtistDetailViewModel(application: Application) : AndroidViewModel(applica
 
     fun loadArtist(artistId: Int) {
         _isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            performerRepository.getArtistById(
-                artistId = artistId,
-                callback = { loadedArtist ->
-                    _artist.postValue(loadedArtist)
-                    _error.postValue(null)
-                    _isLoading.postValue(false)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido")
-                    _artist.postValue(null)
-                    _isLoading.postValue(false)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val loadedArtist = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    performerRepository.getArtistById(artistId)
                 }
-            )
+                _artist.postValue(loadedArtist)
+                _error.postValue(null)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error desconocido")
+                _artist.postValue(null)
+                _isLoading.postValue(false)
+            }
         }
     }
 }

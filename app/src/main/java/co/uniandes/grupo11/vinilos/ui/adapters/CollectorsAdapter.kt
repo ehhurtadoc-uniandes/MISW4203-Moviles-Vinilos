@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import co.uniandes.grupo11.vinilos.R
 import co.uniandes.grupo11.vinilos.models.Collector
 
-class CollectorsAdapter : RecyclerView.Adapter<CollectorsAdapter.CollectorViewHolder>() {
+class CollectorsAdapter(
+    private val onCollectorClick: ((Collector) -> Unit)? = null
+) : RecyclerView.Adapter<CollectorsAdapter.CollectorViewHolder>() {
     
     private var collectors: List<Collector> = emptyList()
 
@@ -19,10 +21,16 @@ class CollectorsAdapter : RecyclerView.Adapter<CollectorsAdapter.CollectorViewHo
         private val collectorEmail: TextView = view.findViewById(R.id.collector_email)
         private val collectorPhone: TextView = view.findViewById(R.id.collector_phone)
 
-        fun bind(collector: Collector) {
+        fun bind(collector: Collector, onCollectorClick: ((Collector) -> Unit)?) {
             collectorName.text = collector.name
             collectorEmail.text = collector.email
             collectorPhone.text = collector.telephone
+            
+            onCollectorClick?.let { clickListener ->
+                itemView.setOnClickListener {
+                    clickListener(collector)
+                }
+            }
         }
     }
 
@@ -33,7 +41,7 @@ class CollectorsAdapter : RecyclerView.Adapter<CollectorsAdapter.CollectorViewHo
     }
 
     override fun onBindViewHolder(holder: CollectorViewHolder, position: Int) {
-        holder.bind(collectors[position])
+        holder.bind(collectors[position], onCollectorClick)
     }
 
     override fun getItemCount() = collectors.size

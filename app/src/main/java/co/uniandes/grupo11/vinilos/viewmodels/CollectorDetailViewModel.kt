@@ -5,14 +5,14 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import co.uniandes.grupo11.vinilos.models.Album
-import co.uniandes.grupo11.vinilos.repositories.AlbumRepository
+import co.uniandes.grupo11.vinilos.models.CollectorDetail
+import co.uniandes.grupo11.vinilos.repositories.CollectorRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AlbumsViewModel(application: Application) : AndroidViewModel(application) {
-    private val _albums = MutableLiveData<List<Album>>()
-    val albums: LiveData<List<Album>> = _albums
+class CollectorDetailViewModel(application: Application) : AndroidViewModel(application) {
+    private val _collector = MutableLiveData<CollectorDetail?>()
+    val collector: LiveData<CollectorDetail?> = _collector
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -20,25 +20,21 @@ class AlbumsViewModel(application: Application) : AndroidViewModel(application) 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    private val albumRepository = AlbumRepository(application)
+    private val collectorRepository = CollectorRepository(application)
 
-    init {
-        loadAlbums()
-    }
-
-    fun loadAlbums() {
+    fun loadCollector(collectorId: Int) {
         _isLoading.postValue(true)
         viewModelScope.launch(Dispatchers.Default) {
             try {
-                val loadedAlbums = kotlinx.coroutines.withContext(Dispatchers.IO) {
-                    albumRepository.refreshData()
+                val loadedCollector = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    collectorRepository.getCollectorDetail(collectorId)
                 }
-                _albums.postValue(loadedAlbums)
+                _collector.postValue(loadedCollector)
                 _error.postValue(null)
                 _isLoading.postValue(false)
             } catch (e: Exception) {
-                _error.postValue(e.message ?: "Error desconocido al cargar álbumes")
-                _albums.postValue(emptyList())
+                _error.postValue(e.message ?: "Error desconocido")
+                _collector.postValue(null)
                 _isLoading.postValue(false)
             }
         }
