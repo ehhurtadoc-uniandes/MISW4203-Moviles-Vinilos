@@ -7,6 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import co.uniandes.grupo11.vinilos.ui.albums.AddCommentFragment
 import co.uniandes.grupo11.vinilos.ui.albums.AddTrackFragment
 import co.uniandes.grupo11.vinilos.ui.albums.AlbumsFragment
 import co.uniandes.grupo11.vinilos.ui.albums.AlbumDetailFragment
@@ -80,6 +81,10 @@ class MainActivity : AppCompatActivity() {
                             toolbarTitle.text = "Asociar Pista"
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
+                        is AddCommentFragment -> {
+                            toolbarTitle.text = "Agregar Comentario"
+                            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                        }
                         is ArtistDetailFragment -> {
                             toolbarTitle.text = getString(R.string.artist_detail_title)
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -123,6 +128,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 is AddTrackFragment -> {
                     toolbarTitle.text = "Asociar Pista"
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                }
+                is AddCommentFragment -> {
+                    toolbarTitle.text = "Agregar Comentario"
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is ArtistDetailFragment -> {

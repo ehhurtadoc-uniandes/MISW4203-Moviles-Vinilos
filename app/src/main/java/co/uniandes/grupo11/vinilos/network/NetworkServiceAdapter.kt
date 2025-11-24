@@ -170,4 +170,24 @@ class NetworkServiceAdapter constructor(context: Context) {
                 })
         )
     }
+
+    fun addCommentToAlbum(albumId: Int, description: String, rating: Int, collectorId: Int, onComplete: (resp: JSONObject) -> Unit, onError: (error: Exception) -> Unit) {
+        val requestBody = JSONObject()
+        requestBody.put("description", description)
+        requestBody.put("rating", rating)
+        
+        val collectorObj = JSONObject()
+        collectorObj.put("id", collectorId)
+        requestBody.put("collector", collectorObj)
+
+        requestQueue.add(
+            JsonObjectRequest(Request.Method.POST, "$BASE_URL/albums/$albumId/comments", requestBody,
+                { response ->
+                    onComplete(response)
+                },
+                {
+                    onError(Exception(it.message))
+                })
+        )
+    }
 }
