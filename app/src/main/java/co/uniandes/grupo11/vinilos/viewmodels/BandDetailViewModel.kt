@@ -24,20 +24,19 @@ class BandDetailViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadBand(bandId: Int) {
         _isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            performerRepository.getBandById(
-                bandId = bandId,
-                callback = { loadedBand ->
-                    _band.postValue(loadedBand)
-                    _error.postValue(null)
-                    _isLoading.postValue(false)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido")
-                    _band.postValue(null)
-                    _isLoading.postValue(false)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val loadedBand = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    performerRepository.getBandById(bandId)
                 }
-            )
+                _band.postValue(loadedBand)
+                _error.postValue(null)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error desconocido")
+                _band.postValue(null)
+                _isLoading.postValue(false)
+            }
         }
     }
 }

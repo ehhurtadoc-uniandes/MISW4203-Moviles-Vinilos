@@ -28,19 +28,19 @@ class ArtistsViewModel(application: Application) : AndroidViewModel(application)
 
     fun loadArtists() {
         _isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            performerRepository.refreshData(
-                callback = { loadedArtists ->
-                    _artists.postValue(loadedArtists)
-                    _error.postValue(null)
-                    _isLoading.postValue(false)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido al cargar artistas")
-                    _artists.postValue(emptyList())
-                    _isLoading.postValue(false)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val loadedArtists = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    performerRepository.refreshData()
                 }
-            )
+                _artists.postValue(loadedArtists)
+                _error.postValue(null)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error desconocido al cargar artistas")
+                _artists.postValue(emptyList())
+                _isLoading.postValue(false)
+            }
         }
     }
 }

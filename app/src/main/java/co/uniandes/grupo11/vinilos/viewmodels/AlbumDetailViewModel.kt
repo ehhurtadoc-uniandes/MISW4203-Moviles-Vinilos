@@ -20,18 +20,17 @@ class AlbumDetailViewModel(application: Application) : AndroidViewModel(applicat
     private val albumRepository = AlbumRepository(application)
 
     fun loadAlbum(albumId: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            albumRepository.getAlbumById(
-                albumId = albumId,
-                callback = { loadedAlbum ->
-                    _album.postValue(loadedAlbum)
-                    _error.postValue(null)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido")
-                    _album.postValue(null)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val loadedAlbum = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    albumRepository.getAlbumById(albumId)
                 }
-            )
+                _album.postValue(loadedAlbum)
+                _error.postValue(null)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error desconocido")
+                _album.postValue(null)
+            }
         }
     }
 }

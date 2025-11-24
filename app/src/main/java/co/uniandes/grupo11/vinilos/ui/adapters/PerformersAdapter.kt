@@ -36,6 +36,7 @@ class PerformersAdapter(
                 .load(performer.image)
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
+                .circleCrop()
                 .into(imageView)
 
             performer.birthDate?.let { birthDateStr ->
