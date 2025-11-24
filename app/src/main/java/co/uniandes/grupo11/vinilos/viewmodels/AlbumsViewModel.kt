@@ -28,19 +28,19 @@ class AlbumsViewModel(application: Application) : AndroidViewModel(application) 
 
     fun loadAlbums() {
         _isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            albumRepository.refreshData(
-                callback = { loadedAlbums ->
-                    _albums.postValue(loadedAlbums)
-                    _error.postValue(null)
-                    _isLoading.postValue(false)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido al cargar álbumes")
-                    _albums.postValue(emptyList())
-                    _isLoading.postValue(false)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val loadedAlbums = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    albumRepository.refreshData()
                 }
-            )
+                _albums.postValue(loadedAlbums)
+                _error.postValue(null)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error desconocido al cargar álbumes")
+                _albums.postValue(emptyList())
+                _isLoading.postValue(false)
+            }
         }
     }
 }

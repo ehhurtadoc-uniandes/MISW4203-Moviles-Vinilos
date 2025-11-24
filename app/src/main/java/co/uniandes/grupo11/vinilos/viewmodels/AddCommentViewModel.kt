@@ -4,10 +4,17 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import co.uniandes.grupo11.vinilos.models.Collector
-import co.uniandes.grupo11.vinilos.network.NetworkServiceAdapter
+import co.uniandes.grupo11.vinilos.repositories.AlbumRepository
+import co.uniandes.grupo11.vinilos.repositories.CollectorRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AddCommentViewModel(application: Application) : AndroidViewModel(application) {
+    
+    private val albumRepository = AlbumRepository(application)
+    private val collectorRepository = CollectorRepository(application)
     
     private val _collectors = MutableLiveData<List<Collector>>()
     val collectors: LiveData<List<Collector>>
@@ -31,16 +38,18 @@ class AddCommentViewModel(application: Application) : AndroidViewModel(applicati
 
     private fun loadCollectors() {
         _isLoading.value = true
-        NetworkServiceAdapter.getInstance(getApplication()).getCollectors(
-            onComplete = { collectors ->
-                _isLoading.value = false
-                _collectors.value = collectors
-            },
-            onError = { exception ->
-                _isLoading.value = false
-                _error.value = exception.message ?: "Error al cargar coleccionistas"
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val collectors = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    collectorRepository.refreshData()
+                }
+                _collectors.postValue(collectors)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _isLoading.postValue(false)
+                _error.postValue(e.message ?: "Error al cargar coleccionistas")
             }
-        )
+        }
     }
 
     fun addComment(albumId: Int, description: String, rating: Int, collectorId: Int) {
@@ -55,20 +64,18 @@ class AddCommentViewModel(application: Application) : AndroidViewModel(applicati
         }
 
         _isLoading.value = true
-        NetworkServiceAdapter.getInstance(getApplication()).addCommentToAlbum(
-            albumId = albumId,
-            description = description,
-            rating = rating,
-            collectorId = collectorId,
-            onComplete = { 
-                _isLoading.value = false
-                _success.value = true
-            },
-            onError = { exception ->
-                _isLoading.value = false
-                _error.value = exception.message ?: "Error al agregar comentario"
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    albumRepository.addCommentToAlbum(albumId, description, rating, collectorId)
+                }
+                _success.postValue(true)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _isLoading.postValue(false)
+                _error.postValue(e.message ?: "Error al agregar comentario")
             }
-        )
+        }
     }
 
     fun clearError() {

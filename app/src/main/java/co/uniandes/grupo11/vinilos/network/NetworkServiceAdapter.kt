@@ -13,10 +13,14 @@ import co.uniandes.grupo11.vinilos.models.ArtistDetail
 import co.uniandes.grupo11.vinilos.models.BandDetail
 import co.uniandes.grupo11.vinilos.models.Collector
 import co.uniandes.grupo11.vinilos.models.CollectorDetail
+import co.uniandes.grupo11.vinilos.models.Comment
 import co.uniandes.grupo11.vinilos.models.Performer
 import co.uniandes.grupo11.vinilos.models.Track
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class NetworkServiceAdapter constructor(context: Context) {
     companion object{
@@ -36,28 +40,28 @@ class NetworkServiceAdapter constructor(context: Context) {
 
     private val gson = Gson()
 
-    fun getAlbums(onComplete: (resp: List<Album>) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getAlbums() = suspendCoroutine<List<Album>> { cont ->
         requestQueue.add(
             JsonArrayRequest(Request.Method.GET, "$BASE_URL/albums", null,
                 { response ->
                     val albums = parseAlbumArray(response)
-                    onComplete(albums)
+                    cont.resume(albums)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
 
-    fun getAlbum(albumId: Int, onComplete: (resp: Album) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getAlbum(albumId: Int) = suspendCoroutine<Album> { cont ->
         requestQueue.add(
             JsonObjectRequest(Request.Method.GET, "$BASE_URL/albums/$albumId", null,
                 { response ->
                     val album = gson.fromJson(response.toString(), Album::class.java)
-                    onComplete(album)
+                    cont.resume(album)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
@@ -71,15 +75,15 @@ class NetworkServiceAdapter constructor(context: Context) {
         return albums
     }
 
-    fun getCollectors(onComplete: (resp: List<Collector>) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getCollectors() = suspendCoroutine<List<Collector>> { cont ->
         requestQueue.add(
             JsonArrayRequest(Request.Method.GET, "$BASE_URL/collectors", null,
                 { response ->
                     val collectors = parseCollectorArray(response)
-                    onComplete(collectors)
+                    cont.resume(collectors)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
@@ -93,28 +97,28 @@ class NetworkServiceAdapter constructor(context: Context) {
         return collectors
     }
 
-    fun getCollector(collectorId: Int, onComplete: (resp: CollectorDetail) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getCollector(collectorId: Int) = suspendCoroutine<CollectorDetail> { cont ->
         requestQueue.add(
             JsonObjectRequest(Request.Method.GET, "$BASE_URL/collectors/$collectorId", null,
                 { response ->
                     val collectorDetail = gson.fromJson(response.toString(), CollectorDetail::class.java)
-                    onComplete(collectorDetail)
+                    cont.resume(collectorDetail)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
 
-    fun getMusicians(onComplete: (resp: List<Performer>) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getMusicians() = suspendCoroutine<List<Performer>> { cont ->
         requestQueue.add(
             JsonArrayRequest(Request.Method.GET, "$BASE_URL/musicians", null,
                 { response ->
                     val musicians = parseMusicianArray(response)
-                    onComplete(musicians)
+                    cont.resume(musicians)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
@@ -128,33 +132,33 @@ class NetworkServiceAdapter constructor(context: Context) {
         return musicians
     }
 
-    fun getMusician(musicianId: Int, onComplete: (resp: ArtistDetail) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getMusician(musicianId: Int) = suspendCoroutine<ArtistDetail> { cont ->
         requestQueue.add(
             JsonObjectRequest(Request.Method.GET, "$BASE_URL/musicians/$musicianId", null,
                 { response ->
                     val artistDetail = gson.fromJson(response.toString(), ArtistDetail::class.java)
-                    onComplete(artistDetail)
+                    cont.resume(artistDetail)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
 
-    fun getBand(bandId: Int, onComplete: (resp: BandDetail) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun getBand(bandId: Int) = suspendCoroutine<BandDetail> { cont ->
         requestQueue.add(
             JsonObjectRequest(Request.Method.GET, "$BASE_URL/bands/$bandId", null,
                 { response ->
                     val bandDetail = gson.fromJson(response.toString(), BandDetail::class.java)
-                    onComplete(bandDetail)
+                    cont.resume(bandDetail)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
 
-    fun addTrackToAlbum(albumId: Int, trackName: String, trackDuration: String, onComplete: (resp: Track) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun addTrackToAlbum(albumId: Int, trackName: String, trackDuration: String) = suspendCoroutine<Track> { cont ->
         val requestBody = JSONObject()
         requestBody.put("name", trackName)
         requestBody.put("duration", trackDuration)
@@ -163,15 +167,15 @@ class NetworkServiceAdapter constructor(context: Context) {
             JsonObjectRequest(Request.Method.POST, "$BASE_URL/albums/$albumId/tracks", requestBody,
                 { response ->
                     val track = gson.fromJson(response.toString(), Track::class.java)
-                    onComplete(track)
+                    cont.resume(track)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }
 
-    fun addCommentToAlbum(albumId: Int, description: String, rating: Int, collectorId: Int, onComplete: (resp: JSONObject) -> Unit, onError: (error: Exception) -> Unit) {
+    suspend fun addCommentToAlbum(albumId: Int, description: String, rating: Int, collectorId: Int) = suspendCoroutine<Comment> { cont ->
         val requestBody = JSONObject()
         requestBody.put("description", description)
         requestBody.put("rating", rating)
@@ -183,10 +187,11 @@ class NetworkServiceAdapter constructor(context: Context) {
         requestQueue.add(
             JsonObjectRequest(Request.Method.POST, "$BASE_URL/albums/$albumId/comments", requestBody,
                 { response ->
-                    onComplete(response)
+                    val comment = gson.fromJson(response.toString(), Comment::class.java)
+                    cont.resume(comment)
                 },
                 {
-                    onError(Exception(it.message))
+                    cont.resumeWithException(Exception(it.message))
                 })
         )
     }

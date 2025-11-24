@@ -28,19 +28,19 @@ class CollectorsViewModel(application: Application) : AndroidViewModel(applicati
 
     fun loadCollectors() {
         _isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            collectorRepository.refreshData(
-                callback = { loadedCollectors ->
-                    _collectors.postValue(loadedCollectors)
-                    _error.postValue(null)
-                    _isLoading.postValue(false)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error desconocido al cargar coleccionistas")
-                    _collectors.postValue(emptyList())
-                    _isLoading.postValue(false)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val loadedCollectors = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    collectorRepository.refreshData()
                 }
-            )
+                _collectors.postValue(loadedCollectors)
+                _error.postValue(null)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error desconocido al cargar coleccionistas")
+                _collectors.postValue(emptyList())
+                _isLoading.postValue(false)
+            }
         }
     }
 }

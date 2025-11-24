@@ -39,22 +39,19 @@ class AddTrackViewModel(application: Application) : AndroidViewModel(application
         }
 
         _isLoading.postValue(true)
-        viewModelScope.launch(Dispatchers.IO) {
-            albumRepository.addTrackToAlbum(
-                albumId = albumId,
-                trackName = trackName,
-                trackDuration = trackDuration,
-                callback = { track ->
-                    _success.postValue(track)
-                    _error.postValue(null)
-                    _isLoading.postValue(false)
-                },
-                onError = { throwable ->
-                    _error.postValue(throwable.message ?: "Error al agregar la pista")
-                    _success.postValue(null)
-                    _isLoading.postValue(false)
+        viewModelScope.launch(Dispatchers.Default) {
+            try {
+                val track = kotlinx.coroutines.withContext(Dispatchers.IO) {
+                    albumRepository.addTrackToAlbum(albumId, trackName, trackDuration)
                 }
-            )
+                _success.postValue(track)
+                _error.postValue(null)
+                _isLoading.postValue(false)
+            } catch (e: Exception) {
+                _error.postValue(e.message ?: "Error al agregar la pista")
+                _success.postValue(null)
+                _isLoading.postValue(false)
+            }
         }
     }
 
