@@ -35,7 +35,7 @@ class HU008ComentarAlbumTest {
         
         Thread.sleep(1000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Agregar Comentario")))
     }
@@ -54,7 +54,7 @@ class HU008ComentarAlbumTest {
         
         Thread.sleep(1000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Agregar Comentario")))
     }

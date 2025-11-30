@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Vinilos</string>
     <string name="birth_date_label">Birth date</string>
     <string name="album_cover_description">Portada del álbum</string>
@@ -24,7 +24,10 @@
     <string name="nav_albums">Álbumes</string>
     <string name="nav_artists">Artistas</string>
     <string name="nav_collectors">Coleccionistas</string>
-    
+    <string name="nav_albums_desc">Pestaña de álbumes</string>
+    <string name="nav_artists_desc">Pestaña de artistas en navegación inferior</string>
+    <string name="nav_collectors_desc">Pestaña de coleccionistas</string>
+
     <string name="artist_detail_title">Detalle del Artista</string>
     <string name="albums_section_title">Álbumes</string>
     <string name="awards_section_title">Premios</string>
@@ -32,4 +35,9 @@
     <string name="award_default_name">Premio</string>
     <string name="birth_date_prefix">Nacimiento:</string>
     <string name="creation_date_prefix">Creación:</string>
+    <string name="rating_bar_description">Calificación del álbum</string>
+    <string name="comment_rating_description">Calificación del comentario</string>
+
+    <!-- Nuevo título para la sección de Artistas Favoritos de un coleccionista -->
+    <string name="favorite_artists_title">Artistas favoritos de este coleccionista</string>
 </resources>

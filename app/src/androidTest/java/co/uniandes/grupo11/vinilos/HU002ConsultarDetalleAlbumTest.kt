@@ -43,7 +43,7 @@ class HU002ConsultarDetalleAlbumTest {
         
         Thread.sleep(1000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Detalle del Álbum")))
     }
@@ -172,7 +172,7 @@ class HU002ConsultarDetalleAlbumTest {
         onView(withId(R.id.albums_recycler_view))
             .check(matches(isDisplayed()))
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Vinilos")))
     }
 

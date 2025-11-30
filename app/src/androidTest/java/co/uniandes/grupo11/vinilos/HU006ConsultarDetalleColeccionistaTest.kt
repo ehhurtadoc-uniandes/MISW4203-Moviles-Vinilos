@@ -51,7 +51,7 @@ class HU006ConsultarDetalleColeccionistaTest {
         
         Thread.sleep(2000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Detalle del Coleccionista")))
     }
@@ -186,7 +186,7 @@ class HU006ConsultarDetalleColeccionistaTest {
         onView(withId(R.id.collectors_recycler_view))
             .check(matches(isDisplayed()))
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Coleccionistas")))
     }
 
