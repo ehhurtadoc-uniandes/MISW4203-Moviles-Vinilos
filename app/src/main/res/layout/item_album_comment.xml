@@ -22,7 +22,6 @@
             android:rating="5"
             android:stepSize="1"
             android:isIndicator="true"
-            android:contentDescription="@string/comment_rating_description"
             android:progressTint="#FFC107"
             android:secondaryProgressTint="#FFC107"
             app:layout_constraintStart_toStartOf="parent"

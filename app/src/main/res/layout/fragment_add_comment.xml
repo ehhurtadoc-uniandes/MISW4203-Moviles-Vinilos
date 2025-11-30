@@ -153,7 +153,6 @@
             android:numStars="5"
             android:rating="5"
             android:stepSize="1"
-            android:contentDescription="@string/rating_bar_description"
             android:progressTint="#FFC107"
             android:secondaryProgressTint="#FFC107"
             app:layout_constraintStart_toStartOf="parent"
@@ -175,8 +174,7 @@
         <Button
             android:id="@+id/btn_submit_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
+            android:layout_height="56dp"
             android:layout_marginTop="32dp"
             android:text="Enviar Comentario"
             android:textAllCaps="false"

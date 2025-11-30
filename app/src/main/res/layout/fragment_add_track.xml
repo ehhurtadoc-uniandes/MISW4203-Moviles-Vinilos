@@ -9,14 +9,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="56dp"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/album_section_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/album_section_title"
+            android:text="Álbum Seleccionado"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             android:textStyle="bold"
             android:textSize="14sp"
@@ -71,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/track_name_label"
+            android:text="Nombre de la Pista"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             android:textStyle="bold"
             android:textSize="14sp"
@@ -84,8 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/track_name_hint"
-            android:minHeight="48dp"
+            android:hint="Ej: Decisiones"
             app:layout_constraintTop_toBottomOf="@id/track_name_label">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -102,7 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="@string/track_duration_label"
+            android:text="Duración"
             android:textAppearance="?attr/textAppearanceSubtitle2"
             android:textStyle="bold"
             android:textSize="14sp"
@@ -113,10 +111,9 @@
             android:id="@+id/track_duration_layout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:minHeight="48dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:hint="@string/track_duration_hint"
+            android:hint="Ej: 5:05"
             app:layout_constraintTop_toBottomOf="@id/track_duration_label">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -133,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/duration_format_text"
+            android:text="Formato: MM:SS"
             android:textAppearance="?attr/textAppearanceCaption"
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="12sp"
@@ -143,12 +140,9 @@
         <Button
             android:id="@+id/btn_add_track"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="48dp"
-            android:maxLines="2"
-            android:ellipsize="end"
+            android:layout_height="56dp"
             android:layout_marginTop="32dp"
-            android:text="@string/btn_add_track"
+            android:text="Asociar Pista"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -168,3 +162,4 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
+

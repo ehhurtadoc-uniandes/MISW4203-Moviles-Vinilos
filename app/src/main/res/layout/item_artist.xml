@@ -6,9 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="16dp"
     android:layout_marginVertical="8dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?attr/selectableItemBackground"
     app:cardCornerRadius="12dp"
     app:cardElevation="2dp"
     app:cardBackgroundColor="#F5F5F5">
@@ -27,7 +24,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/artist_image_description"
             android:background="@drawable/artist_image_background"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@tools/sample/avatars" />
 
         <LinearLayout
             android:layout_width="0dp"
