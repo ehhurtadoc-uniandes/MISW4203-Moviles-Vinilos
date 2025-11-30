@@ -24,7 +24,10 @@
     <string name="nav_albums">Álbumes</string>
     <string name="nav_artists">Artistas</string>
     <string name="nav_collectors">Coleccionistas</string>
-    
+    <string name="nav_albums_desc">Pestaña de álbumes</string>
+    <string name="nav_artists_desc">Pestaña de artistas</string>
+    <string name="nav_collectors_desc">Pestaña de coleccionistas</string>
+
     <string name="artist_detail_title">Detalle del Artista</string>
     <string name="albums_section_title">Álbumes</string>
     <string name="awards_section_title">Premios</string>
@@ -32,4 +35,13 @@
     <string name="award_default_name">Premio</string>
     <string name="birth_date_prefix">Nacimiento:</string>
     <string name="creation_date_prefix">Creación:</string>
+    <string name="btn_add_track">Asociar Pista</string>
+    <string name="album_section_title">Álbum Seleccionado</string>
+    <string name="track_name_label">Nombre de la Pista</string>
+    <string name="track_name_hint">Ej: Decisiones</string>
+    <string name="track_duration_label">Duración</string>
+    <string name="track_duration_hint">Ej: 5:05</string>
+    <string name="duration_format_text">Formato: MM:SS</string>
+    <string name="rating_bar_description">Calificación del álbum</string>
+    <string name="comment_rating_description">Calificación del comentario</string>
 </resources>
