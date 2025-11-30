@@ -131,9 +131,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Artistas Favoritos"
+            android:text="@string/favorite_artists_title"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             android:textStyle="bold"
+            android:importantForAccessibility="no"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comments_recycler_view" />
 
@@ -187,4 +188,3 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>
-

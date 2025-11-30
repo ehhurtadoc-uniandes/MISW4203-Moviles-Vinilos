@@ -38,7 +38,7 @@ class HU001ConsultarCatalogoAlbumesTest {
 
     @Test
     fun testConsultarCatalogoAlbums_VerificaTituloEnBarraSuperior() {
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Vinilos")))
     }
@@ -98,13 +98,13 @@ class HU001ConsultarCatalogoAlbumesTest {
         onView(withId(R.id.navigation_artists))
             .perform(click())
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Artistas")))
         
         onView(withId(R.id.navigation_albums))
             .perform(click())
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Vinilos")))
     }
 }

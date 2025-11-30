@@ -51,7 +51,7 @@ class HU004ConsultarDetalleArtistaTest {
         
         Thread.sleep(2000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Detalle del Artista")))
     }
@@ -205,7 +205,7 @@ class HU004ConsultarDetalleArtistaTest {
         onView(withId(R.id.artists_recycler_view))
             .check(matches(isDisplayed()))
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Artistas")))
     }
 
@@ -232,7 +232,7 @@ class HU004ConsultarDetalleArtistaTest {
         onView(withId(R.id.artist_name))
             .check(matches(isDisplayed()))
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Detalle del Artista")))
     }
 
@@ -262,7 +262,7 @@ class HU004ConsultarDetalleArtistaTest {
         onView(withId(R.id.album_title))
             .check(matches(isDisplayed()))
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Detalle del Álbum")))
     }
 

@@ -25,7 +25,7 @@ class HU005ConsultarListadoColeccionistasTest {
         onView(withId(R.id.navigation_collectors))
             .perform(click())
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Coleccionistas")))
     }
@@ -35,7 +35,7 @@ class HU005ConsultarListadoColeccionistasTest {
         onView(withId(R.id.navigation_collectors))
             .perform(click())
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Coleccionistas")))
     }
@@ -119,7 +119,7 @@ class HU005ConsultarListadoColeccionistasTest {
         
         Thread.sleep(1000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Coleccionistas")))
         
         onView(withId(R.id.navigation_albums))
@@ -127,7 +127,7 @@ class HU005ConsultarListadoColeccionistasTest {
         
         Thread.sleep(1000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Vinilos")))
         
         onView(withId(R.id.navigation_collectors))
@@ -135,7 +135,7 @@ class HU005ConsultarListadoColeccionistasTest {
         
         Thread.sleep(1000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(withText("Coleccionistas")))
     }
 

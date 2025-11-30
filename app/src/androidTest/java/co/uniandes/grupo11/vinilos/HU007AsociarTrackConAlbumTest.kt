@@ -35,7 +35,7 @@ class HU007AsociarTrackConAlbumTest {
         
         Thread.sleep(3000)
         
-        onView(withId(R.id.toolbar_title))
+        onView(withId(R.id.toolbar))
             .check(matches(isDisplayed()))
             .check(matches(withText("Asociar Pista")))
     }

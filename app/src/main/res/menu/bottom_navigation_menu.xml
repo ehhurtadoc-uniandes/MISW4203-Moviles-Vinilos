@@ -3,16 +3,19 @@
     <item
         android:id="@+id/navigation_albums"
         android:icon="@drawable/selector_albums"
-        android:title="@string/nav_albums" />
-    
+        android:title="@string/nav_albums"
+        android:contentDescription="@string/nav_albums_desc" />
+
     <item
         android:id="@+id/navigation_artists"
         android:icon="@drawable/selector_artists"
-        android:title="@string/nav_artists" />
-    
+        android:title="@string/nav_artists"
+        android:contentDescription="@string/nav_artists_desc" />
+
     <item
         android:id="@+id/navigation_collectors"
         android:icon="@drawable/selector_collectors"
-        android:title="@string/nav_collectors" />
+        android:title="@string/nav_collectors"
+        android:contentDescription="@string/nav_collectors_desc" />
 </menu>
 

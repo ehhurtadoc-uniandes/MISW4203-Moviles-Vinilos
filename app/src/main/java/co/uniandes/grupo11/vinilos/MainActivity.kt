@@ -2,7 +2,6 @@ package co.uniandes.grupo11.vinilos
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.google.android.material.appbar.MaterialToolbar
@@ -19,7 +18,6 @@ import co.uniandes.grupo11.vinilos.ui.collectors.CollectorsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: MaterialToolbar
-    private lateinit var toolbarTitle: TextView
     private lateinit var bottomNavigation: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +25,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         toolbar = findViewById(R.id.toolbar)
-        toolbarTitle = findViewById(R.id.toolbar_title)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-        
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+
         toolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
@@ -38,23 +35,23 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation.setOnItemSelectedListener { item ->
             clearBackStack()
-            
+
             when (item.itemId) {
                 R.id.navigation_albums -> {
                     loadFragment(AlbumsFragment(), clearBackStack = false)
-                    toolbarTitle.text = getString(R.string.app_name)
+                    toolbar.title = getString(R.string.app_name)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     true
                 }
                 R.id.navigation_artists -> {
                     loadFragment(ArtistsFragment(), clearBackStack = false)
-                    toolbarTitle.text = getString(R.string.nav_artists)
+                    toolbar.title = getString(R.string.nav_artists)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     true
                 }
                 R.id.navigation_collectors -> {
                     loadFragment(CollectorsFragment(), clearBackStack = false)
-                    toolbarTitle.text = getString(R.string.nav_collectors)
+                    toolbar.title = getString(R.string.nav_collectors)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     true
                 }
@@ -70,45 +67,45 @@ class MainActivity : AppCompatActivity() {
             override fun handleOnBackPressed() {
                 if (supportFragmentManager.backStackEntryCount > 0) {
                     supportFragmentManager.popBackStack()
-                    
+
                     val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
                     when (currentFragment) {
                         is AlbumDetailFragment -> {
-                            toolbarTitle.text = "Detalle del Álbum"
+                            toolbar.title = "Detalle del Álbum"
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
                         is AddTrackFragment -> {
-                            toolbarTitle.text = "Asociar Pista"
+                            toolbar.title = "Asociar Pista"
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
                         is AddCommentFragment -> {
-                            toolbarTitle.text = "Agregar Comentario"
+                            toolbar.title = "Agregar Comentario"
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
                         is ArtistDetailFragment -> {
-                            toolbarTitle.text = getString(R.string.artist_detail_title)
+                            toolbar.title = getString(R.string.artist_detail_title)
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
                         is BandDetailFragment -> {
-                            toolbarTitle.text = getString(R.string.artist_detail_title)
+                            toolbar.title = getString(R.string.artist_detail_title)
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
                         is CollectorDetailFragment -> {
-                            toolbarTitle.text = "Detalle del Coleccionista"
+                            toolbar.title = "Detalle del Coleccionista"
                             supportActionBar?.setDisplayHomeAsUpEnabled(true)
                         }
                         is AlbumsFragment -> {
-                            toolbarTitle.text = getString(R.string.app_name)
+                            toolbar.title = getString(R.string.app_name)
                             supportActionBar?.setDisplayHomeAsUpEnabled(false)
                             bottomNavigation.selectedItemId = R.id.navigation_albums
                         }
                         is ArtistsFragment -> {
-                            toolbarTitle.text = getString(R.string.nav_artists)
+                            toolbar.title = getString(R.string.nav_artists)
                             supportActionBar?.setDisplayHomeAsUpEnabled(false)
                             bottomNavigation.selectedItemId = R.id.navigation_artists
                         }
                         is CollectorsFragment -> {
-                            toolbarTitle.text = getString(R.string.nav_collectors)
+                            toolbar.title = getString(R.string.nav_collectors)
                             supportActionBar?.setDisplayHomeAsUpEnabled(false)
                             bottomNavigation.selectedItemId = R.id.navigation_collectors
                         }
@@ -123,39 +120,39 @@ class MainActivity : AppCompatActivity() {
             val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
             when (currentFragment) {
                 is AlbumDetailFragment -> {
-                    toolbarTitle.text = "Detalle del Álbum"
+                    toolbar.title = "Detalle del Álbum"
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is AddTrackFragment -> {
-                    toolbarTitle.text = "Asociar Pista"
+                    toolbar.title = "Asociar Pista"
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is AddCommentFragment -> {
-                    toolbarTitle.text = "Agregar Comentario"
+                    toolbar.title = "Agregar Comentario"
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is ArtistDetailFragment -> {
-                    toolbarTitle.text = getString(R.string.artist_detail_title)
+                    toolbar.title = getString(R.string.artist_detail_title)
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is BandDetailFragment -> {
-                    toolbarTitle.text = getString(R.string.artist_detail_title)
+                    toolbar.title = getString(R.string.artist_detail_title)
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is CollectorDetailFragment -> {
-                    toolbarTitle.text = "Detalle del Coleccionista"
+                    toolbar.title = "Detalle del Coleccionista"
                     supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 }
                 is AlbumsFragment -> {
-                    toolbarTitle.text = getString(R.string.app_name)
+                    toolbar.title = getString(R.string.app_name)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 }
                 is ArtistsFragment -> {
-                    toolbarTitle.text = getString(R.string.nav_artists)
+                    toolbar.title = getString(R.string.nav_artists)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 }
                 is CollectorsFragment -> {
-                    toolbarTitle.text = getString(R.string.nav_collectors)
+                    toolbar.title = getString(R.string.nav_collectors)
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 }
             }
